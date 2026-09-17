@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "electron/**/*.ts",
+    "shared/**/*.ts",
+    "scripts/**/*.mjs",
+    "electron.vite.config.ts"
+  ],
+  "compilerOptions": {
+    "types": ["node"],
+    "paths": {
+      "@main/*": ["./electron/main/*"],
+      "@shared/*": ["./shared/*"],
+      "@splayer/smtc-lyric": ["./native/smtc-lyric/index.d.ts"]
+    }
+  }
+}

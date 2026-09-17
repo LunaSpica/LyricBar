@@ -1,0 +1,11 @@
+node_modules
+out
+dist
+native/**/target
+*.log
+auto-eslint.mjs
+
+# napi-rs 事务残留
+.napi-rs-filesystem-transaction.swp
+# napi 重命名残留
+..smtc-lyric.node.*.tmp

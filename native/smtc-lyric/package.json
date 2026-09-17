@@ -1,0 +1,14 @@
+{
+  "name": "smtc-lyric",
+  "version": "0.1.0",
+  "main": "smtc-lyric.node",
+  "types": "index.d.ts",
+  "napi": {
+    "binaryName": "smtc-lyric",
+    "triples": {}
+  },
+  "scripts": {
+    "build": "napi build --release --no-const-enum",
+    "build:debug": "napi build --no-const-enum"
+  }
+}

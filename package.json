@@ -1,0 +1,42 @@
+{
+  "name": "taskbar-lyric",
+  "version": "0.1.0",
+  "description": "Windows 任务栏歌词 · 独立版，通过 SMTC 接入任意第三方播放器",
+  "main": "./out/main/index.js",
+  "author": {
+    "name": "SPlayer-Next"
+  },
+  "scripts": {
+    "dev": "pnpm build:native --dev && electron-vite dev",
+    "dev:nodeps": "electron-vite dev",
+    "build": "pnpm build:native && electron-vite build",
+    "build:native": "node scripts/build-native.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && vue-tsc --noEmit -p tsconfig.web.json",
+    "start": "electron-vite preview",
+    "package:win": "electron-vite build && electron-builder --win",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "atomically": "^2.1.1",
+    "electron-log": "^5.4.4",
+    "lyric-kit": "^0.5.4"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.101",
+    "@napi-rs/cli": "^3.8.2",
+    "@types/node": "^22.19.17",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "electron": "~43.2.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^5.0.0",
+    "eslint": "^10.10.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.11.0",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3",
+    "unplugin-auto-import": "^20.2.0",
+    "unplugin-icons": "^24.0.0",
+    "vue": "^3.5.22",
+    "vue-tsc": "^3.1.0"
+  }
+}

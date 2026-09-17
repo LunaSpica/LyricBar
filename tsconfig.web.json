@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "windows/**/*.vue",
+    "windows/**/*.ts",
+    "shared/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/types/auto-imports.d.ts",
+    "electron/preload/**/*.ts"
+  ],
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    "paths": {
+      "@shared/*": ["./shared/*"],
+      "@windows/*": ["./windows/*"],
+      "@/*": ["./src/*"]
+    }
+  }
+}
