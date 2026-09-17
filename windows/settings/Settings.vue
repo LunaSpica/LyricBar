@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import type { Settings, TaskbarLyricSettings, TaskbarLyricPosition, TaskbarLyricColorMode } from "@shared/types/settings";
+import type {
+  Settings,
+  TaskbarLyricSettings,
+  TaskbarLyricPosition,
+  TaskbarLyricColorMode,
+} from "@shared/types/settings";
 
 /** 完整设置（本地镜像，变更即写回主进程） */
 const settings = ref<Settings>({
@@ -31,21 +36,28 @@ const settings = ref<Settings>({
 const taskbarLyric = computed(() => settings.value.taskbarLyric);
 
 /** 写回设置 */
-const update = <K extends keyof TaskbarLyricSettings>(key: K, value: TaskbarLyricSettings[K]) => {
+const update = <K extends keyof TaskbarLyricSettings>(
+  key: K,
+  value: TaskbarLyricSettings[K],
+) => {
   settings.value.taskbarLyric[key] = value;
   window.api.config.set(`taskbarLyric.${key}`, value);
 };
 
-const updateLyric = <K extends keyof Settings["lyric"]>(key: K, value: Settings["lyric"][K]) => {
+const updateLyric = <K extends keyof Settings["lyric"]>(
+  key: K,
+  value: Settings["lyric"][K],
+) => {
   settings.value.lyric[key] = value;
   window.api.config.set(`lyric.${key}`, value);
 };
 
-const POSITION_OPTIONS: Array<{ value: TaskbarLyricPosition; label: string }> = [
-  { value: "auto", label: "自动（跟随任务栏对齐）" },
-  { value: "left", label: "固定在左侧" },
-  { value: "right", label: "固定在右侧" },
-];
+const POSITION_OPTIONS: Array<{ value: TaskbarLyricPosition; label: string }> =
+  [
+    { value: "auto", label: "自动（跟随任务栏对齐）" },
+    { value: "left", label: "固定在左侧" },
+    { value: "right", label: "固定在右侧" },
+  ];
 
 const COLOR_OPTIONS: Array<{ value: TaskbarLyricColorMode; label: string }> = [
   { value: "taskbar", label: "跟随任务栏" },
@@ -55,9 +67,13 @@ const COLOR_OPTIONS: Array<{ value: TaskbarLyricColorMode; label: string }> = [
 ];
 
 onMounted(async () => {
-  const saved = (await window.api.config.get("taskbarLyric")) as TaskbarLyricSettings | null;
-  if (saved) settings.value.taskbarLyric = { ...settings.value.taskbarLyric, ...saved };
-  const lyricCfg = (await window.api.config.get("lyric")) as Settings["lyric"] | null;
+  const saved = (await window.api.config.get(
+    "taskbarLyric",
+  )) as TaskbarLyricSettings | null;
+  if (saved)
+    settings.value.taskbarLyric = { ...settings.value.taskbarLyric, ...saved };
+  const lyricCfg = (await window.api.config.get("lyric")) as
+    Settings["lyric"] | null;
   if (lyricCfg) settings.value.lyric = { ...settings.value.lyric, ...lyricCfg };
 });
 </script>
@@ -65,7 +81,7 @@ onMounted(async () => {
 <template>
   <div class="page">
     <header class="header">
-      <h1>任务栏歌词</h1>
+      <h1>LyricBar</h1>
       <p class="sub">通过系统媒体控制（SMTC）接入任意第三方播放器 · Beta</p>
     </header>
 
@@ -77,9 +93,19 @@ onMounted(async () => {
           <div class="label">显示位置</div>
           <select
             :value="taskbarLyric.position"
-            @change="update('position', ($event.target as HTMLSelectElement).value as TaskbarLyricPosition)"
+            @change="
+              update(
+                'position',
+                ($event.target as HTMLSelectElement)
+                  .value as TaskbarLyricPosition,
+              )
+            "
           >
-            <option v-for="opt in POSITION_OPTIONS" :key="opt.value" :value="opt.value">
+            <option
+              v-for="opt in POSITION_OPTIONS"
+              :key="opt.value"
+              :value="opt.value"
+            >
               {{ opt.label }}
             </option>
           </select>
@@ -105,7 +131,12 @@ onMounted(async () => {
             <button
               class="switch"
               :class="{ on: taskbarLyric.autoAdjustOccupiedSpace }"
-              @click="update('autoAdjustOccupiedSpace', !taskbarLyric.autoAdjustOccupiedSpace)"
+              @click="
+                update(
+                  'autoAdjustOccupiedSpace',
+                  !taskbarLyric.autoAdjustOccupiedSpace,
+                )
+              "
             >
               <span class="knob" />
             </button>
@@ -114,14 +145,21 @@ onMounted(async () => {
         </div>
 
         <div v-else class="item">
-          <div class="label">最大宽度 <em class="value">{{ taskbarLyric.maxWidth }}px</em></div>
+          <div class="label">
+            最大宽度 <em class="value">{{ taskbarLyric.maxWidth }}px</em>
+          </div>
           <input
             type="range"
             min="200"
             max="800"
             step="20"
             :value="taskbarLyric.maxWidth"
-            @change="update('maxWidth', Number(($event.target as HTMLInputElement).value))"
+            @change="
+              update(
+                'maxWidth',
+                Number(($event.target as HTMLInputElement).value),
+              )
+            "
           />
         </div>
 
@@ -132,7 +170,15 @@ onMounted(async () => {
             min="0"
             max="500"
             :value="taskbarLyric.leftMargin"
-            @change="update('leftMargin', Math.max(0, Number(($event.target as HTMLInputElement).value) || 0))"
+            @change="
+              update(
+                'leftMargin',
+                Math.max(
+                  0,
+                  Number(($event.target as HTMLInputElement).value) || 0,
+                ),
+              )
+            "
           />
         </div>
 
@@ -143,7 +189,15 @@ onMounted(async () => {
             min="0"
             max="500"
             :value="taskbarLyric.rightMargin"
-            @change="update('rightMargin', Math.max(0, Number(($event.target as HTMLInputElement).value) || 0))"
+            @change="
+              update(
+                'rightMargin',
+                Math.max(
+                  0,
+                  Number(($event.target as HTMLInputElement).value) || 0,
+                ),
+              )
+            "
           />
         </div>
       </section>
@@ -155,9 +209,19 @@ onMounted(async () => {
           <div class="label">配色模式</div>
           <select
             :value="taskbarLyric.colorMode"
-            @change="update('colorMode', ($event.target as HTMLSelectElement).value as TaskbarLyricColorMode)"
+            @change="
+              update(
+                'colorMode',
+                ($event.target as HTMLSelectElement)
+                  .value as TaskbarLyricColorMode,
+              )
+            "
           >
-            <option v-for="opt in COLOR_OPTIONS" :key="opt.value" :value="opt.value">
+            <option
+              v-for="opt in COLOR_OPTIONS"
+              :key="opt.value"
+              :value="opt.value"
+            >
               {{ opt.label }}
             </option>
           </select>
@@ -177,26 +241,40 @@ onMounted(async () => {
         </div>
 
         <div class="item">
-          <div class="label">字号 <em class="value">{{ taskbarLyric.fontSize }}px</em></div>
+          <div class="label">
+            字号 <em class="value">{{ taskbarLyric.fontSize }}px</em>
+          </div>
           <input
             type="range"
             min="12"
             max="20"
             step="1"
             :value="taskbarLyric.fontSize"
-            @input="update('fontSize', Number(($event.target as HTMLInputElement).value))"
+            @input="
+              update(
+                'fontSize',
+                Number(($event.target as HTMLInputElement).value),
+              )
+            "
           />
         </div>
 
         <div class="item">
-          <div class="label">字重 <em class="value">{{ taskbarLyric.fontWeight }}</em></div>
+          <div class="label">
+            字重 <em class="value">{{ taskbarLyric.fontWeight }}</em>
+          </div>
           <input
             type="range"
             min="100"
             max="900"
             step="100"
             :value="taskbarLyric.fontWeight"
-            @input="update('fontWeight', Number(($event.target as HTMLInputElement).value))"
+            @input="
+              update(
+                'fontWeight',
+                Number(($event.target as HTMLInputElement).value),
+              )
+            "
           />
         </div>
 
@@ -207,7 +285,12 @@ onMounted(async () => {
             class="text-input"
             placeholder="留空使用默认字体栈"
             :value="taskbarLyric.fontFamily"
-            @change="update('fontFamily', ($event.target as HTMLInputElement).value.trim())"
+            @change="
+              update(
+                'fontFamily',
+                ($event.target as HTMLInputElement).value.trim(),
+              )
+            "
           />
         </div>
       </section>
@@ -279,12 +362,19 @@ onMounted(async () => {
             <button
               class="switch"
               :class="{ on: settings.lyric.enableOnlineTTMLLyric }"
-              @click="updateLyric('enableOnlineTTMLLyric', !settings.lyric.enableOnlineTTMLLyric)"
+              @click="
+                updateLyric(
+                  'enableOnlineTTMLLyric',
+                  !settings.lyric.enableOnlineTTMLLyric,
+                )
+              "
             >
               <span class="knob" />
             </button>
           </div>
-          <p class="desc">网易云命中歌词后，尝试用 AMLL TTML DB 的逐字时间轴覆盖</p>
+          <p class="desc">
+            网易云命中歌词后，尝试用 AMLL TTML DB 的逐字时间轴覆盖
+          </p>
         </div>
       </section>
 

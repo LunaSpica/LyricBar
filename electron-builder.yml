@@ -1,5 +1,5 @@
 appId: com.splayer.taskbarlyric
-productName: TaskbarLyric
+productName: LyricBar
 directories:
   output: dist
 files:
@@ -23,6 +23,6 @@ nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
-  shortcutName: Taskbar Lyric
+  shortcutName: LyricBar
 portable:
-  artifactName: TaskbarLyric-${version}-portable.exe
+  artifactName: LyricBar-${version}-portable.exe

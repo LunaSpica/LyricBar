@@ -1,7 +1,7 @@
 {
-  "name": "taskbar-lyric",
+  "name": "lyricbar",
   "version": "0.1.0",
-  "description": "Windows 任务栏歌词 · 独立版，通过 SMTC 接入任意第三方播放器",
+  "description": "LyricBar · Windows 任务栏歌词独立版，通过 SMTC 接入任意第三方播放器",
   "main": "./out/main/index.js",
   "author": {
     "name": "SPlayer-Next"

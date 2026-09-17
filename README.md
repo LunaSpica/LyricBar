@@ -1,12 +1,14 @@
-# Taskbar Lyric · 任务栏歌词（独立版）
+# LyricBar · Windows 任务栏歌词
 
-从 SPlayer-Next 抽取的 Windows 任务栏歌词独立应用。通过系统媒体控制（SMTC，
+<p align="center"><strong>LyricBar</strong> — 从 SPlayer-Next 抽取的 Windows 任务栏歌词独立应用。</p>
+
+通过系统媒体控制（SMTC，
 GlobalSystemMediaTransportControlsSessionManager）接入任意第三方播放器——
 网易云音乐、QQ音乐、Spotify、浏览器等注册了 SMTC 会话的应用均可用。
 
 ## 功能
 
-完整复刻 SPlayer 任务栏歌词的全部能力：
+复刻并增强 SPlayer 任务栏歌词的全部能力：
 
 - **任务栏嵌入**：Win10 / Win11 双策略（UIA + SetParent），居中任务栏自动选侧，
   explorer.exe 重启自动重嵌，任务栏宽度/主题/托盘变化实时重算布局
@@ -65,3 +67,17 @@ windows/shared/            useNowPlayingSync 播放同步 composable（移植自
 - 仅支持 Windows 10/11（任务栏歌词与 SMTC 均为系统能力）
 - 播放器必须注册 SMTC 会话；个别老版本 Win32 播放器不注册，属系统限制
 - 逐字歌词依赖平台的 YRC/TTML 数据，命中 LRC 时自动降级为逐行显示
+
+
+## 开源协议与致谢
+
+本项目基于 [SPlayer-Next](https://github.com/SPlayer-Dev/SPlayer-Next)（AGPL-3.0）修改而来
+（修改时间：2026-09-17，修改内容：抽取任务栏歌词为独立应用并增强第三方播放器进度同步），
+延续其上游 [SPlayer](https://github.com/imsyy/SPlayer)（AGPL-3.0）。
+
+依据 **GNU Affero General Public License v3.0** 发布：
+
+- 任何修改或分发须同样以 AGPL-3.0 发布并提供完整源代码（本仓库即完整源码）；
+- 保留原项目版权与出处声明。
+
+© 2026 LunaSpica · LyricBar

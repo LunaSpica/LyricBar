@@ -23,7 +23,7 @@ export const createSettingsWindow = (): BrowserWindow | null => {
     height: 720,
     minWidth: 360,
     minHeight: 560,
-    title: "任务栏歌词 · 设置",
+    title: "LyricBar · 设置",
     autoHideMenuBar: true,
     webPreferences: {
       zoomFactor: 1.0,
@@ -31,9 +31,13 @@ export const createSettingsWindow = (): BrowserWindow | null => {
   });
 
   if (process.env["ELECTRON_RENDERER_URL"]) {
-    settingsWindow.loadURL(`${process.env["ELECTRON_RENDERER_URL"]}/windows/settings/index.html`);
+    settingsWindow.loadURL(
+      `${process.env["ELECTRON_RENDERER_URL"]}/windows/settings/index.html`,
+    );
   } else {
-    settingsWindow.loadFile(join(__dirname, "../renderer/windows/settings/index.html"));
+    settingsWindow.loadFile(
+      join(__dirname, "../renderer/windows/settings/index.html"),
+    );
   }
 
   settingsWindow.once("ready-to-show", () => {

@@ -1,7 +1,10 @@
 import { Menu, Tray, app, nativeImage } from "electron";
 import { join } from "path";
 import { createSettingsWindow } from "@main/window/settings";
-import { closeTaskbarLyricWindow, createTaskbarLyricWindow } from "@main/window/taskbarLyric";
+import {
+  closeTaskbarLyricWindow,
+  createTaskbarLyricWindow,
+} from "@main/window/taskbarLyric";
 import { coreLog } from "@main/utils/logger";
 
 let tray: Tray | null = null;
@@ -34,7 +37,7 @@ export const createTray = (): void => {
   try {
     const icon = nativeImage.createFromPath(trayIconPath());
     tray = new Tray(icon);
-    tray.setToolTip("任务栏歌词");
+    tray.setToolTip("LyricBar");
     tray.setContextMenu(buildMenu());
     tray.on("double-click", () => createSettingsWindow());
     coreLog.info("[tray] 托盘已创建");
